@@ -31,3 +31,7 @@
   (helm-projectile-find-file)
   )
 (define-key global-map (kbd "C-p") 'h-find-file)
+
+(add-to-list 'custom-theme-load-path (concat home-path "/themes/") )
+(load-theme 'monokai t)
+
