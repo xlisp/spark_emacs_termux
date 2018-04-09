@@ -28,10 +28,16 @@
 
 (defun h-find-file ()
   (interactive)
-  (helm-projectile-find-file)
-  )
+  (helm-projectile-find-file))
 (define-key global-map (kbd "C-p") 'h-find-file)
 
 (add-to-list 'custom-theme-load-path (concat home-path "/themes/") )
 (load-theme 'monokai t)
 
+(global-set-key
+ (kbd "C-c m")
+ (lambda ()
+   (interactive)
+   (goto-char (point-max))))
+
+(define-key global-map (kbd "C-c k") 'ido-kill-buffer)
