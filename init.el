@@ -47,6 +47,12 @@
   (cider-interactive-eval sexp))
 (define-key global-map (kbd "M-\"") 'clj-eval-sexp)
 
+(define-key global-map (kbd "C-l") 'cider-eval-last-sexp)
+(global-set-key
+ (kbd "C-n")
+ (lambda ()
+   (interactive)
+   (clojure-forward-logical-sexp 1)))
 (define-key global-map (kbd "M-g") 'goto-line)
 
 (require 'helm)
