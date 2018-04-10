@@ -81,14 +81,15 @@
 
 (provide 'init-helm)
 
-(define-key global-map (kbd "C-x C-g") 'helm-projectile-ag)
+(define-key global-map (kbd "C-x C-g") 'helm-projectile-ag) ;; 手机上用
+(define-key global-map (kbd "C-x C-a") 'helm-projectile-ag) ;; 电脑上用
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages (quote (helm-ag queue))))
+ '(package-selected-packages (quote (ac-cider robe helm-ag queue))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -110,3 +111,28 @@
 (defun v ()
   (interactive)
   (find-file "/data/data/com.termux/files/home/spark_emacs_termux/init.el"))
+
+(setq tab-always-indent 'complete)
+
+(eval-after-load 'company
+  '(push 'company-robe company-backends))
+
+;; https://github.com/chanshunli/ac-cider
+;; ac-cider should now automatically be enabled when you visit a buffer in which cider-mode is active and auto-complete is enabled. (The symbols “cider” and “AC” should appear in the modeline.)
+(require 'ac-cider)
+(add-hook 'cider-mode-hook 'ac-flyspell-workaround)
+(add-hook 'cider-mode-hook 'ac-cider-setup)
+(add-hook 'cider-repl-mode-hook 'ac-cider-setup)
+(eval-after-load "auto-complete"
+  '(progn
+     (add-to-list 'ac-modes 'cider-mode)
+     (add-to-list 'ac-modes 'cider-repl-mode)))
+
+(defun set-auto-complete-as-completion-at-point-function ()
+  (setq completion-at-point-functions '(auto-complete)))
+
+(add-hook 'auto-complete-mode-hook 'set-auto-complete-as-completion-at-point-function)
+(add-hook 'cider-mode-hook 'set-auto-complete-as-completion-at-point-function)
+
+(ac-set-trigger-key "TAB")
+
