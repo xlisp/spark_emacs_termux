@@ -81,7 +81,7 @@
 
 (provide 'init-helm)
 
-(define-key global-map (kbd "C-x C-a") 'helm-projectile-ag)
+(define-key global-map (kbd "C-x C-g") 'helm-projectile-ag)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -95,3 +95,18 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+
+
+(global-set-key "%" 'match-paren)
+
+(defun match-paren (arg)
+  "Go to the matching paren if on a paren; otherwise insert %."
+  (interactive "p")
+  (cond
+   ((looking-at "\\s\(") (forward-list 1) (backward-char 1))
+   ((looking-at "\\s\)") (forward-char 1) (backward-list 1))
+   (t (self-insert-command (or arg 1)))))
+
+(defun v ()
+  (interactive)
+  (find-file "/data/data/com.termux/files/home/spark_emacs_termux/init.el"))
