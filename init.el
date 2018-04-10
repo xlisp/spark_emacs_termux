@@ -136,3 +136,7 @@
 
 (ac-set-trigger-key "TAB")
 
+(require 'yasnippet)
+(require 'dash)
+(yas-global-mode 1)
+
